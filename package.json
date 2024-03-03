@@ -1,0 +1,28 @@
+{
+  "name": "tamam",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/tamam.umd.cjs",
+  "module": "./dist/tamam.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/tamam.js",
+      "require": "./dist/tamam.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.4",
+    "vite-plugin-dts": "^3.7.3"
+  }
+}
