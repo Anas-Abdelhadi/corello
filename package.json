@@ -1,12 +1,15 @@
 {
   "name": "tamam",
   "version": "0.0.1",
+  "description": "TS decortator based validation",
+  "author": "Anas AbdelHadi",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/tamam.umd.cjs",
   "module": "./dist/tamam.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/tamam.js",
       "require": "./dist/tamam.umd.cjs"
     }
@@ -24,5 +27,9 @@
     "typescript": "^5.2.2",
     "vite": "^5.1.4",
     "vite-plugin-dts": "^3.7.3"
-  }
+  },
+  "keywords": [
+    "Validation",
+    "Decorator"
+  ]
 }

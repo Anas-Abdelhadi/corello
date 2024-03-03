@@ -10,5 +10,5 @@ export default defineConfig({
       fileName: 'tamam',
     },
   },
-  plugins: [dts()],
+  plugins: [dts({ include: ['src'] })],
 });
