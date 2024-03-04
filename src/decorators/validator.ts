@@ -1,4 +1,4 @@
-import { TProps } from '../core/utils';
+import { TProps, extract } from '../core/utils';
 
 type TValidatorExec = (...args: any[]) => TValidatorResult
 type TValidatorResult = { isOk: boolean; message: string }
@@ -8,10 +8,30 @@ type TValidator<T extends object, TName extends keyof TProps<T> = keyof TProps<T
 type TValidationMap<T extends object, TValidatorName extends string> = {
   [k in keyof Omit<T, 'v'>]?: { validators: TValidator<T>; value: T[k]; result: { isOk: boolean; messages: string[] } & { [u in TValidatorName]?: TValidatorResult } }
 }
-
+const getter = Symbol()
+const setter = Symbol()
+ 
 function v<T extends new (...args: any[]) => any>(C: T) {
   return class extends C {
-    setVal(instance: T & { v: any }, context: { prop: keyof T; value: any }) {
+    constructor(...args: any[]) {
+      super(...args)
+      const props = extract(this)
+      Object.entries(props).forEach(([prop, y]) => {
+        if (y === undefined) {
+          Object.defineProperty(this, prop, {
+            enumerable: true,
+            configurable: true,
+            get: function () {
+              return this[getter]?.(this, prop)
+            },
+            set: function (value: string) {
+              this[setter]?.(this, { prop, value })
+            }
+          })
+        }
+      })
+    }
+    [setter](instance: T & { v: any }, context: { prop: keyof T; value: any }) {
       const { prop, value } = context
       const { $validators } = this
       !instance.v && (instance.v = {})
@@ -27,9 +47,9 @@ function v<T extends new (...args: any[]) => any>(C: T) {
         { isOk: true, messages: [] } as { isOk: boolean; messages: string[] }
       )
 
-      instance.v[prop as keyof T] = { value, validators: $validators, result }
+      instance.v[prop as keyof T] = { value, validators: $validators[prop], result }
     }
-    getVal(instance: T & { v: any }, prop: keyof T) {
+    [getter](instance: T & { v: any }, prop: keyof T) {
       return instance.v[prop]?.value
     }
   }
@@ -45,14 +65,14 @@ function validatorFactory<T extends object>(validators: TValidator<T>) {
       enumerable: true,
       configurable: true,
       get: function () {
-        return this?.getVal?.(this, prop)
+        return this[getter]?.(this, prop)
       },
       set: function (value: string) {
-        this?.setVal?.(this, { prop, value })
+        this[setter]?.(this, { prop, value })
       }
     })
   }
 }
- 
-export { v, validatorFactory  }
-export type {TValidationMap,TValidator,TValidatorExec,TValidatorResult}
+
+export { v, validatorFactory }
+export type { TValidationMap, TValidator, TValidatorExec, TValidatorResult }
