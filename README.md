@@ -7,19 +7,6 @@ The motive behind this library is to enable validating properties of TS classes 
 To add validation to your typescript class, simply add the `@v ` decorator before your class.
 this will in turn populate a local map inside your class named `v` of type `TValidationMap`
 
-```
-import {v} from 'tamam'
-@v
-class Human {
-	 // you can appply more than one validator here..
-	 // age is valid if not n
-	 @not(10) // with param
-	 @positive // parameterless..
-	 age!:number
-	//...
-}
-```
-
 To validate a property: use the `validatorFactory` before your property, this can be composed as you wish.
 
 ```
@@ -38,12 +25,28 @@ const not = (param:  number) =>
 
 // following is a parameterless decorator..
 const positive = validatorFactory({
-		not: (val:  number) => {
+		positive: (val:  number) => {
 			const  isOk  =  val  >0
 			return { isOk, message:  isOk  ?  ''  :  `validation.positive.error` }
 		},
 		//...other validation functions if needed
 	})
+```
+
+```
+import {v} from 'tamam'
+@v
+class Human {
+	 // the lib will auto-add the following local v prop (not required) , but can enhance intellisense
+	 v!:  TValidationMap<Human ,'not'|'positive'>
+
+	 // you can appply more than one validator here..
+	 // age is valid if not n
+	 @not(10) // with param
+	 @positive // parameterless..
+	 age!:number
+	//...
+}
 ```
 
 > **Note:** In your **ts-config** make sure to enable the experimental decorators.
