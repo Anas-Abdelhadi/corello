@@ -41,3 +41,4 @@ ioc.add(Person1)
 const person1 =  ioc.construct<Person1>('Person',1)
 person1.semsem2.walk() 
 console.log(person1)
+ 
