@@ -44,7 +44,7 @@ class IoC {
   
   register<K extends IInjectable>(Cls: TClass<K>, meta: TServiceConfig) {
     const domain = meta.domain === undefined ? 0 : meta.domain
-    if (domain < 0) throw Error(`💀 Invalid Domain ${domain}. IoC minimum domain is Zero`)
+    if (domain < 0) throw Error(`:: Invalid Domain ${domain}. IoC minimum domain is Zero`)
     //global
     const targetContext = meta.tag.endsWith('@global') ? 'global' : this._activeAppContext
     const alreadyThere = this.registry[targetContext] && this.registry[targetContext][domain] && Object.keys(this.registry[targetContext][meta.domain ?? 0]).find(y => y == meta.tag)
@@ -54,11 +54,11 @@ class IoC {
     else !alreadyThere && (this.registry[targetContext]![domain][meta.tag] = { Cls, ...meta })
     if (alreadyThere) {
       if (meta.enforce?.domain !== undefined && meta.enforce?.domain !== domain) {
-        console.warn(`⚠️ You're attempting to enforce Service [${meta.tag}] for context [${targetContext}] as domain ${domain}\n However domain [${domain}] does not include this service!`)
+        console.warn(`:: You're attempting to enforce Service [${meta.tag}] for context [${targetContext}] as domain ${domain}\n However domain [${domain}] does not include this service!`)
       } else if (meta.enforce?.domain == domain) this.registry[targetContext]![domain][meta.tag] = { Cls, ...meta }
       else
         console.warn(
-          `⚠️ You're attempting to re-register Service [${meta.tag}] in domain [${domain}] for context [${targetContext}]\nIoC has skipped this, if you wish to allow this overrite pass 'enforce' in your service config.`
+          `:: You're attempting to re-register Service [${meta.tag}] in domain [${domain}] for context [${targetContext}]\nIoC has skipped this, if you wish to allow this overrite pass 'enforce' in your service config.`
         )
     }
   }
@@ -84,11 +84,11 @@ class IoC {
     const result = this.getFirstAvailableDomain(identifier, _domain)
 
     if (result === undefined)
-      throw new Error(`💀IoC:${identifier} @ domain [${_domain ?? this._activeDomain}] was not found in ${identifier.endsWith('@global') ? 'global' : this._activeAppContext},\nDid you register it ?`)
+      throw new Error(`::IoC:${identifier} @ domain [${_domain ?? this._activeDomain}] was not found in ${identifier.endsWith('@global') ? 'global' : this._activeAppContext},\nDid you register it ?`)
     const { dependency, domain } = result as { dependency: TDependency; domain: number }
     if (domain !== _domain)
       console.warn(
-        `⚠️ IoC:${identifier} @ domain [${_domain ?? this._activeDomain}] was not found in ${
+        `:: IoC:${identifier} @ domain [${_domain ?? this._activeDomain}] was not found in ${
           identifier.endsWith('@global') ? 'global' : this._activeAppContext
         },Dependency Injector fetch this from [${domain}]`
       )
@@ -133,11 +133,6 @@ class IoCBuilder {
   add<T extends IInjectable>(service: TClass<TGuess<T>>) {
     const metadata = Reflect.getMetadata(SERVICE_KEY, service)
     this.instance.register(service, metadata)
-    // Object.defineProperty(this,`${metadata.cls.id}`,{
-    //    enumerable:true,
-    //    configurable:false,
-    //    value:(d?:number)=>this.construct(metadata.cls.id,d)
-    // })
     return this
   }
   /**
