@@ -1,18 +1,18 @@
 {
-  "name": "xioc",
+  "name": "iocello",
   "version": "0.0.1",
   "description": "Inversion of Control",
   "author": "Anas AbdelHadi",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/xioc.umd.cjs",
-  "module": "./dist/xioc.js",
+  "main": "./dist/iocello.umd.cjs",
+  "module": "./dist/iocello.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/xioc.js",
-      "require": "./dist/xioc.umd.cjs"
+      "import": "./dist/iocello.js",
+      "require": "./dist/iocello.umd.cjs"
     }
   },
   "files": [

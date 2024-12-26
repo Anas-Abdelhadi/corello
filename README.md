@@ -1,4 +1,4 @@
-# Welcome to XIoC!
+# Welcome to iocello!
 
 This Library empowers you with the concept of Dependency Injection. and allows Inversion of control.
 

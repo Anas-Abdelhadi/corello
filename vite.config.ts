@@ -6,8 +6,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'xioc',
-      fileName: 'xioc',
+      name: 'iocello',
+      fileName: 'iocello',
     },
   },
   plugins: [dts({ include: ['src'] })],
