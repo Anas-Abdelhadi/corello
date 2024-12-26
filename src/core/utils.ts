@@ -1,5 +1,13 @@
+export type TClass<T> = { new (...args: any[]): T }
+export type THashMap<T = {}> = Record<PropertyKey,T>
+export type TOptional<T> = T | undefined
+export type TClassDecorator<T> = (t: T) => void | T
+export type TGuess<T> = T extends infer R ? R : never
+export interface IInjectable  {
+ // id: string
+  dispose(): void
+}
  
-
 export const isFn = (val: any) => typeof val === 'function'
 export const extract  = <T >(instance: T, isMethods = false): Readonly<{[key in keyof TProps<T>]:TProps<T>[key]}|TPickStartsWith<TMethods<T>, 'on'>> => {
   const result = {} as TPickStartsWith<TMethods<T>, 'on'> | {} as {[k in keyof T]:any}

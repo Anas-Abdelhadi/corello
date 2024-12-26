@@ -1,18 +1,18 @@
 {
-  "name": "tamam",
-  "version": "0.0.3",
-  "description": "TS decortator based validation",
+  "name": "xioc",
+  "version": "0.0.0",
+  "description": "Inversion of Control",
   "author": "Anas AbdelHadi",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/tamam.umd.cjs",
-  "module": "./dist/tamam.js",
+  "main": "./dist/xioc.umd.cjs",
+  "module": "./dist/xioc.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/tamam.js",
-      "require": "./dist/tamam.umd.cjs"
+      "import": "./dist/xioc.js",
+      "require": "./dist/xioc.umd.cjs"
     }
   },
   "files": [
@@ -27,10 +27,12 @@
     "@types/node": "^20.11.24",
     "typescript": "^5.2.2",
     "vite": "^5.1.4",
-    "vite-plugin-dts": "^3.7.3"
+    "vite-plugin-dts": "^3.7.3",
+    "reflect-metadata": "^0.2.1"
   },
   "keywords": [
-    "Validation",
+    "Dependency Injection",
+    "Inversion of Control",
     "Decorator"
   ]
 }
