@@ -1,4 +1,4 @@
-import 'reflect-metadata'
+import '@abraham/reflection'
 
 import { extract } from '../core/utils'
 import { ioc } from './di'

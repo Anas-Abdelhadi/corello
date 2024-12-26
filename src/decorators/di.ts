@@ -1,4 +1,4 @@
-import 'reflect-metadata'
+import '@abraham/reflection'
 
 import type { IInjectable, TClass, TGuess, THashMap, TOptional } from '../core/utils'
 import { SERVICE_KEY, TServiceConfig } from './service'
@@ -131,7 +131,7 @@ class IoCBuilder {
    * @description This will add the service to the registery making this available for IoC resolution
    */
   add<T extends IInjectable>(service: TClass<TGuess<T>>) {
-    const metadata = Reflect.getMetadata(SERVICE_KEY, service)
+    const metadata = Reflect.getMetadata(SERVICE_KEY, service) as TServiceConfig
     this.instance.register(service, metadata)
     return this
   }

@@ -81,9 +81,11 @@ ioc.add(Person2)
 // also check the console as IoC will warn you about services that were not found where their supposed to be,
 // you will be warned also about service overrites, in case it was un-intentional
 
-const person =  ioc.construct<Person1>('Person',100)
+const person =  ioc.construct<Person>('Person',100)
 person.Pet.walk()
 console.log(person)
 ```
 
 > **Note:** In your **ts-config** make sure to enable the experimental decorators.
+
+> **Note:** This Library relies on the amazing **'@abraham/reflection'** as a replacement for the ts reflection, (a great size drop).
