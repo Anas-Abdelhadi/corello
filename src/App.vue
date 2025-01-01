@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { ioc } from 'iocello'
-import type { IPerson } from './service/meta'
-const person = ioc.construct<IPerson>('Person')
-console.log(person)
+import { User } from './domain/user'
+const user = new User()
+//use from to deserialize the json..
+user.from({ name: 'Anas', car: { make: 'Benz' } })
+console.log(user)
 </script>
 
 <template>
-  <h1>IOCELLO</h1>
-  <p>{{ person.hello }}</p>
+  <h1>corello</h1>
+  <p>Open the console</p>
+  <p>Name :{{ user.name }}</p>
+  <p>JSON{{ JSON.stringify(user) }}</p>
+  <p>is typeof User? :{{ user instanceof User }}</p>
 </template>

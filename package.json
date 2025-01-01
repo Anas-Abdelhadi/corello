@@ -1,5 +1,5 @@
 {
-  "name": "iocello",
+  "name": "corello",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,8 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "corello": "^0.0.3",
-    "iocello": "^0.0.7",
+    "corello": "^0.0.5",
     "vue": "^3.5.13"
   },
   "devDependencies": {
